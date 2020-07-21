@@ -1,3 +1,7 @@
+# ignore auth and config files
+auth.json
+config.json
+
 # Logs
 logs
 *.log
