@@ -14,7 +14,8 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
-const swearWords = ['lmao', 'imao', '1mao', '|MAO', '!mao'];
+// const swearWords = ['lmao', 'imao', '1mao', '|MAO', '!mao'];
+const illegalWord = /[li|!1]m+[a@]+[0o]+/gi;
 
 client.once('ready', () => {
     console.log('Ready!');
@@ -22,14 +23,14 @@ client.once('ready', () => {
 
 client.on('message', message => {
 
-    if (swearWords.some(word => message.content.toLowerCase().includes(word)) && !message.author.bot) {
+    if (message.content.match(illegalWord) && !message.author.bot) {
 
         // Store message with ilegal string
-        const censoredString = message.content;
+        // const censoredString = message.content;
         // Delete user message
         message.delete();
         // Send message as spoiler (censored)
-        message.channel.send(`message from ${message.author.username}: ||${censoredString}||`);
+        message.channel.send(`message from ${message.author.username}: ||${message.content}||`);
     }
 
     if (message.content.includes(`${prefix}start`)) {
